@@ -18,7 +18,6 @@ namespace MemoryBase.Data
         public memoryBaseEntities()
             : base("name=memoryBaseEntities")
         {
-    
             Database.Log = x => System.Diagnostics.Trace.Write(x);
             this.Configuration.LazyLoadingEnabled = false;
         }

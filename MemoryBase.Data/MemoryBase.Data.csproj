@@ -57,75 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Emotion.cs">
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LifeEvent.cs">
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Memory.cs">
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MemoryBase.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MemoryBase.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MemoryBase.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MemoryBase.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MemoryBase.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="MemoryEmotion.cs">
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MemoryLifeEvent.cs">
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MemoryNote.cs">
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MemoryPerson.cs">
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="MemoryTag.cs">
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Person.cs">
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tag.cs">
-      <DependentUpon>MemoryBase.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="MemoryBase.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MemoryBase.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="MemoryBase.edmx.diagram">
-      <DependentUpon>MemoryBase.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="MemoryBase.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MemoryBase.edmx</DependentUpon>
-      <LastGenOutput>MemoryBase.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="MemoryBase.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MemoryBase.edmx</DependentUpon>
-      <LastGenOutput>MemoryBase.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

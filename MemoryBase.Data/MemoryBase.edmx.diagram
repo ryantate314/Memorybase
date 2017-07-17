@@ -4,27 +4,27 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e5f711ab567b4f159603414c94790bab" Name="Diagram1">
-        <EntityTypeShape EntityType="MemorybaseContext.Emotion" Width="1.5" PointX="0.75" PointY="13.125" />
-        <EntityTypeShape EntityType="MemorybaseContext.LifeEvent" Width="1.5" PointX="0.75" PointY="5" />
-        <EntityTypeShape EntityType="MemorybaseContext.Memory" Width="1.5" PointX="0.75" PointY="8.5" />
-        <EntityTypeShape EntityType="MemorybaseContext.MemoryEmotion" Width="1.5" PointX="3" PointY="8.875" />
-        <EntityTypeShape EntityType="MemorybaseContext.MemoryLifeEvent" Width="1.5" PointX="3" PointY="6" />
-        <EntityTypeShape EntityType="MemorybaseContext.MemoryNote" Width="1.5" PointX="3" PointY="16.5" />
-        <EntityTypeShape EntityType="MemorybaseContext.MemoryPerson" Width="1.5" PointX="5.25" PointY="15.375" />
-        <EntityTypeShape EntityType="MemorybaseContext.MemoryTag" Width="1.5" PointX="3" PointY="12" />
-        <EntityTypeShape EntityType="MemorybaseContext.Person" Width="1.5" PointX="3" PointY="22.125" />
-        <EntityTypeShape EntityType="MemorybaseContext.Tag" Width="1.5" PointX="0.75" PointY="16.125" />
-        <AssociationConnector Association="MemorybaseContext.FK_MemoryEmotionEmotionKey_EmotionEmotionKey" />
-        <AssociationConnector Association="MemorybaseContext.FK_MemoryLifeEventLifeEventKey_LifeEventLifeEventKey" />
-        <AssociationConnector Association="MemorybaseContext.FK_MemoryEmotionMemoryKey_MemoryMemoryKey" />
-        <AssociationConnector Association="MemorybaseContext.FK_MemoryLifeEventMemoryKey_MemoryMemoryKey" />
-        <AssociationConnector Association="MemorybaseContext.FK_MemoryNoteMemoryKey_MemoryMemoryKey" />
-        <AssociationConnector Association="MemorybaseContext.FK_MemoryPersonMemoryKey_MemoryMemoryKey" />
-        <AssociationConnector Association="MemorybaseContext.FK_MemoryTagMemoryKey_MemoryMemoryKey" />
-        <AssociationConnector Association="MemorybaseContext.FK_PersonFirstMemoryKey_MemoryMemoryKey" />
-        <AssociationConnector Association="MemorybaseContext.FK_MemoryPersonPersonKey_PersonPersonKey" />
-        <AssociationConnector Association="MemorybaseContext.FK_MemoryTagTagKey_TagTagKey" />
+      <Diagram DiagramId="d735fb43b981441d914a3c0009df2090" Name="Diagram1">
+        <EntityTypeShape EntityType="MemorybaseContext.Emotion" Width="1.5" PointX="0.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MemorybaseContext.LifeEvent" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MemorybaseContext.Memory" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MemorybaseContext.MemoryEmotion" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MemorybaseContext.MemoryLifeEvent" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="MemorybaseContext.MemoryNote" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MemorybaseContext.MemoryPerson" Width="1.5" PointX="5.25" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MemorybaseContext.MemoryTag" Width="1.5" PointX="6" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="MemorybaseContext.Person" Width="1.5" PointX="3" PointY="22.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MemorybaseContext.Tag" Width="1.5" PointX="3.75" PointY="3.125" IsExpanded="true" />
+        <AssociationConnector Association="MemorybaseContext.FK_MemoryEmotionEmotionKey_EmotionEmotionKey" ManuallyRouted="false" />
+        <AssociationConnector Association="MemorybaseContext.FK_MemoryLifeEventLifeEventKey_LifeEventLifeEventKey" ManuallyRouted="false" />
+        <AssociationConnector Association="MemorybaseContext.FK_MemoryEmotionMemoryKey_MemoryMemoryKey" ManuallyRouted="false" />
+        <AssociationConnector Association="MemorybaseContext.FK_MemoryLifeEventMemoryKey_MemoryMemoryKey" ManuallyRouted="false" />
+        <AssociationConnector Association="MemorybaseContext.FK_MemoryNoteMemoryKey_MemoryMemoryKey" ManuallyRouted="false" />
+        <AssociationConnector Association="MemorybaseContext.FK_MemoryPersonMemoryKey_MemoryMemoryKey" ManuallyRouted="false" />
+        <AssociationConnector Association="MemorybaseContext.FK_MemoryTagMemoryKey_MemoryMemoryKey" ManuallyRouted="false" />
+        <AssociationConnector Association="MemorybaseContext.FK_PersonFirstMemoryKey_MemoryMemoryKey" ManuallyRouted="false" />
+        <AssociationConnector Association="MemorybaseContext.FK_MemoryPersonPersonKey_PersonPersonKey" ManuallyRouted="false" />
+        <AssociationConnector Association="MemorybaseContext.FK_MemoryTagTagKey_TagTagKey" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

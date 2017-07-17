@@ -2,7 +2,7 @@
 <#@ include file="EF6.Utility.CS.ttinclude"#><#@
  output extension=".cs"#><#
 
-const string inputFile = @"MemoryBase.edmx";
+const string inputFile = @"Memorybase.edmx";
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);
 var ef = new MetadataTools(this);
@@ -58,7 +58,6 @@ using System.Linq;
     public <#=code.Escape(container)#>()
         : base("name=<#=container.Name#>")
     {
-
         Database.Log = x => System.Diagnostics.Trace.Write(x);
 <#
 if (!loader.IsLazyLoadingEnabled(container))
