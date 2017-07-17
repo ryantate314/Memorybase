@@ -1,0 +1,688 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MemorybaseContext.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Emotion">
+          <Key>
+            <PropertyRef Name="EmotionKey" />
+          </Key>
+          <Property Name="EmotionKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="Deleted" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LifeEvent">
+          <Key>
+            <PropertyRef Name="LifeEventKey" />
+          </Key>
+          <Property Name="LifeEventKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="Deleted" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Memory">
+          <Key>
+            <PropertyRef Name="MemoryKey" />
+          </Key>
+          <Property Name="MemoryKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="Deleted" Type="tinyint" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemoryEmotion">
+          <Key>
+            <PropertyRef Name="MemoryEmotionKey" />
+          </Key>
+          <Property Name="MemoryEmotionKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemoryKey" Type="int" Nullable="false" />
+          <Property Name="EmotionKey" Type="int" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Intensity" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemoryLifeEvent">
+          <Key>
+            <PropertyRef Name="MemoryLifeEventKey" />
+          </Key>
+          <Property Name="MemoryLifeEventKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemoryKey" Type="int" Nullable="false" />
+          <Property Name="LifeEventKey" Type="int" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemoryNote">
+          <Key>
+            <PropertyRef Name="MemoryNoteKey" />
+          </Key>
+          <Property Name="MemoryNoteKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemoryKey" Type="int" Nullable="false" />
+          <Property Name="Text" Type="text" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="Deleted" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemoryPerson">
+          <Key>
+            <PropertyRef Name="MemoryPersonKey" />
+          </Key>
+          <Property Name="MemoryPersonKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemoryKey" Type="int" Nullable="false" />
+          <Property Name="PersonKey" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MemoryTag">
+          <Key>
+            <PropertyRef Name="MemoryTagKey" />
+          </Key>
+          <Property Name="MemoryTagKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MemoryKey" Type="int" Nullable="false" />
+          <Property Name="TagKey" Type="int" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Precision="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonKey" />
+          </Key>
+          <Property Name="PersonKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="DateMet" Type="date" />
+          <Property Name="FirstMemoryKey" Type="int" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagKey" />
+          </Key>
+          <Property Name="TagKey" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Deleted" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_MemoryEmotionEmotionKey_EmotionEmotionKey">
+          <End Role="Emotion" Type="Self.Emotion" Multiplicity="1" />
+          <End Role="MemoryEmotion" Type="Self.MemoryEmotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emotion">
+              <PropertyRef Name="EmotionKey" />
+            </Principal>
+            <Dependent Role="MemoryEmotion">
+              <PropertyRef Name="EmotionKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryEmotionMemoryKey_MemoryMemoryKey">
+          <End Role="Memory" Type="Self.Memory" Multiplicity="1" />
+          <End Role="MemoryEmotion" Type="Self.MemoryEmotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="MemoryEmotion">
+              <PropertyRef Name="MemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryLifeEventLifeEventKey_LifeEventLifeEventKey">
+          <End Role="LifeEvent" Type="Self.LifeEvent" Multiplicity="1" />
+          <End Role="MemoryLifeEvent" Type="Self.MemoryLifeEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LifeEvent">
+              <PropertyRef Name="LifeEventKey" />
+            </Principal>
+            <Dependent Role="MemoryLifeEvent">
+              <PropertyRef Name="LifeEventKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryLifeEventMemoryKey_MemoryMemoryKey">
+          <End Role="Memory" Type="Self.Memory" Multiplicity="1" />
+          <End Role="MemoryLifeEvent" Type="Self.MemoryLifeEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="MemoryLifeEvent">
+              <PropertyRef Name="MemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryNoteMemoryKey_MemoryMemoryKey">
+          <End Role="Memory" Type="Self.Memory" Multiplicity="1" />
+          <End Role="MemoryNote" Type="Self.MemoryNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="MemoryNote">
+              <PropertyRef Name="MemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryPersonMemoryKey_MemoryMemoryKey">
+          <End Role="Memory" Type="Self.Memory" Multiplicity="1" />
+          <End Role="MemoryPerson" Type="Self.MemoryPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="MemoryPerson">
+              <PropertyRef Name="MemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryPersonPersonKey_PersonPersonKey">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="MemoryPerson" Type="Self.MemoryPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonKey" />
+            </Principal>
+            <Dependent Role="MemoryPerson">
+              <PropertyRef Name="PersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryTagMemoryKey_MemoryMemoryKey">
+          <End Role="Memory" Type="Self.Memory" Multiplicity="1" />
+          <End Role="MemoryTag" Type="Self.MemoryTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="MemoryTag">
+              <PropertyRef Name="MemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryTagTagKey_TagTagKey">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="MemoryTag" Type="Self.MemoryTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="TagKey" />
+            </Principal>
+            <Dependent Role="MemoryTag">
+              <PropertyRef Name="TagKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFirstMemoryKey_MemoryMemoryKey">
+          <End Role="Memory" Type="Self.Memory" Multiplicity="0..1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="FirstMemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MemorybaseContextStoreContainer">
+          <EntitySet Name="Emotion" EntityType="Self.Emotion" Schema="memoryBase" store:Type="Tables" />
+          <EntitySet Name="LifeEvent" EntityType="Self.LifeEvent" Schema="memoryBase" store:Type="Tables" />
+          <EntitySet Name="Memory" EntityType="Self.Memory" Schema="memoryBase" store:Type="Tables" />
+          <EntitySet Name="MemoryEmotion" EntityType="Self.MemoryEmotion" Schema="memoryBase" store:Type="Tables" />
+          <EntitySet Name="MemoryLifeEvent" EntityType="Self.MemoryLifeEvent" Schema="memoryBase" store:Type="Tables" />
+          <EntitySet Name="MemoryNote" EntityType="Self.MemoryNote" Schema="memoryBase" store:Type="Tables" />
+          <EntitySet Name="MemoryPerson" EntityType="Self.MemoryPerson" Schema="memoryBase" store:Type="Tables" />
+          <EntitySet Name="MemoryTag" EntityType="Self.MemoryTag" Schema="memoryBase" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="memoryBase" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="memoryBase" store:Type="Tables" />
+          <AssociationSet Name="FK_MemoryEmotionEmotionKey_EmotionEmotionKey" Association="Self.FK_MemoryEmotionEmotionKey_EmotionEmotionKey">
+            <End Role="Emotion" EntitySet="Emotion" />
+            <End Role="MemoryEmotion" EntitySet="MemoryEmotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryEmotionMemoryKey_MemoryMemoryKey" Association="Self.FK_MemoryEmotionMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memory" />
+            <End Role="MemoryEmotion" EntitySet="MemoryEmotion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryLifeEventLifeEventKey_LifeEventLifeEventKey" Association="Self.FK_MemoryLifeEventLifeEventKey_LifeEventLifeEventKey">
+            <End Role="LifeEvent" EntitySet="LifeEvent" />
+            <End Role="MemoryLifeEvent" EntitySet="MemoryLifeEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryLifeEventMemoryKey_MemoryMemoryKey" Association="Self.FK_MemoryLifeEventMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memory" />
+            <End Role="MemoryLifeEvent" EntitySet="MemoryLifeEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryNoteMemoryKey_MemoryMemoryKey" Association="Self.FK_MemoryNoteMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memory" />
+            <End Role="MemoryNote" EntitySet="MemoryNote" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryPersonMemoryKey_MemoryMemoryKey" Association="Self.FK_MemoryPersonMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memory" />
+            <End Role="MemoryPerson" EntitySet="MemoryPerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryPersonPersonKey_PersonPersonKey" Association="Self.FK_MemoryPersonPersonKey_PersonPersonKey">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="MemoryPerson" EntitySet="MemoryPerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryTagMemoryKey_MemoryMemoryKey" Association="Self.FK_MemoryTagMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memory" />
+            <End Role="MemoryTag" EntitySet="MemoryTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryTagTagKey_TagTagKey" Association="Self.FK_MemoryTagTagKey_TagTagKey">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="MemoryTag" EntitySet="MemoryTag" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFirstMemoryKey_MemoryMemoryKey" Association="Self.FK_PersonFirstMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memory" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MemorybaseContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="memoryBaseEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="Emotions" EntityType="MemorybaseContext.Emotion" />
+          <EntitySet Name="LifeEvents" EntityType="MemorybaseContext.LifeEvent" />
+          <EntitySet Name="Memories" EntityType="MemorybaseContext.Memory" />
+          <EntitySet Name="MemoryEmotions" EntityType="MemorybaseContext.MemoryEmotion" />
+          <EntitySet Name="MemoryLifeEvents" EntityType="MemorybaseContext.MemoryLifeEvent" />
+          <EntitySet Name="MemoryNotes" EntityType="MemorybaseContext.MemoryNote" />
+          <EntitySet Name="MemoryPersons" EntityType="MemorybaseContext.MemoryPerson" />
+          <EntitySet Name="MemoryTags" EntityType="MemorybaseContext.MemoryTag" />
+          <EntitySet Name="People" EntityType="MemorybaseContext.Person" />
+          <EntitySet Name="Tags" EntityType="MemorybaseContext.Tag" />
+          <AssociationSet Name="FK_MemoryEmotionEmotionKey_EmotionEmotionKey" Association="MemorybaseContext.FK_MemoryEmotionEmotionKey_EmotionEmotionKey">
+            <End Role="Emotion" EntitySet="Emotions" />
+            <End Role="MemoryEmotion" EntitySet="MemoryEmotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryLifeEventLifeEventKey_LifeEventLifeEventKey" Association="MemorybaseContext.FK_MemoryLifeEventLifeEventKey_LifeEventLifeEventKey">
+            <End Role="LifeEvent" EntitySet="LifeEvents" />
+            <End Role="MemoryLifeEvent" EntitySet="MemoryLifeEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryEmotionMemoryKey_MemoryMemoryKey" Association="MemorybaseContext.FK_MemoryEmotionMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memories" />
+            <End Role="MemoryEmotion" EntitySet="MemoryEmotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryLifeEventMemoryKey_MemoryMemoryKey" Association="MemorybaseContext.FK_MemoryLifeEventMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memories" />
+            <End Role="MemoryLifeEvent" EntitySet="MemoryLifeEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryNoteMemoryKey_MemoryMemoryKey" Association="MemorybaseContext.FK_MemoryNoteMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memories" />
+            <End Role="MemoryNote" EntitySet="MemoryNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryPersonMemoryKey_MemoryMemoryKey" Association="MemorybaseContext.FK_MemoryPersonMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memories" />
+            <End Role="MemoryPerson" EntitySet="MemoryPersons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryTagMemoryKey_MemoryMemoryKey" Association="MemorybaseContext.FK_MemoryTagMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memories" />
+            <End Role="MemoryTag" EntitySet="MemoryTags" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonFirstMemoryKey_MemoryMemoryKey" Association="MemorybaseContext.FK_PersonFirstMemoryKey_MemoryMemoryKey">
+            <End Role="Memory" EntitySet="Memories" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryPersonPersonKey_PersonPersonKey" Association="MemorybaseContext.FK_MemoryPersonPersonKey_PersonPersonKey">
+            <End Role="Person" EntitySet="People" />
+            <End Role="MemoryPerson" EntitySet="MemoryPersons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MemoryTagTagKey_TagTagKey" Association="MemorybaseContext.FK_MemoryTagTagKey_TagTagKey">
+            <End Role="Tag" EntitySet="Tags" />
+            <End Role="MemoryTag" EntitySet="MemoryTags" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Emotion">
+          <Key>
+            <PropertyRef Name="EmotionKey" />
+          </Key>
+          <Property Name="EmotionKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="MemoryEmotions" Relationship="MemorybaseContext.FK_MemoryEmotionEmotionKey_EmotionEmotionKey" FromRole="Emotion" ToRole="MemoryEmotion" />
+        </EntityType>
+        <EntityType Name="LifeEvent">
+          <Key>
+            <PropertyRef Name="LifeEventKey" />
+          </Key>
+          <Property Name="LifeEventKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" />
+          <Property Name="EndDate" Type="DateTime" />
+          <Property Name="Deleted" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="MemoryLifeEvents" Relationship="MemorybaseContext.FK_MemoryLifeEventLifeEventKey_LifeEventLifeEventKey" FromRole="LifeEvent" ToRole="MemoryLifeEvent" />
+        </EntityType>
+        <EntityType Name="Memory">
+          <Key>
+            <PropertyRef Name="MemoryKey" />
+          </Key>
+          <Property Name="MemoryKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="SByte" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="MemoryEmotions" Relationship="MemorybaseContext.FK_MemoryEmotionMemoryKey_MemoryMemoryKey" FromRole="Memory" ToRole="MemoryEmotion" />
+          <NavigationProperty Name="MemoryLifeEvents" Relationship="MemorybaseContext.FK_MemoryLifeEventMemoryKey_MemoryMemoryKey" FromRole="Memory" ToRole="MemoryLifeEvent" />
+          <NavigationProperty Name="MemoryNotes" Relationship="MemorybaseContext.FK_MemoryNoteMemoryKey_MemoryMemoryKey" FromRole="Memory" ToRole="MemoryNote" />
+          <NavigationProperty Name="MemoryPersons" Relationship="MemorybaseContext.FK_MemoryPersonMemoryKey_MemoryMemoryKey" FromRole="Memory" ToRole="MemoryPerson" />
+          <NavigationProperty Name="MemoryTags" Relationship="MemorybaseContext.FK_MemoryTagMemoryKey_MemoryMemoryKey" FromRole="Memory" ToRole="MemoryTag" />
+          <NavigationProperty Name="People" Relationship="MemorybaseContext.FK_PersonFirstMemoryKey_MemoryMemoryKey" FromRole="Memory" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="MemoryEmotion">
+          <Key>
+            <PropertyRef Name="MemoryEmotionKey" />
+          </Key>
+          <Property Name="MemoryEmotionKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemoryKey" Type="Int32" Nullable="false" />
+          <Property Name="EmotionKey" Type="Int32" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" />
+          <Property Name="Intensity" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="Emotion" Relationship="MemorybaseContext.FK_MemoryEmotionEmotionKey_EmotionEmotionKey" FromRole="MemoryEmotion" ToRole="Emotion" />
+          <NavigationProperty Name="Memory" Relationship="MemorybaseContext.FK_MemoryEmotionMemoryKey_MemoryMemoryKey" FromRole="MemoryEmotion" ToRole="Memory" />
+        </EntityType>
+        <EntityType Name="MemoryLifeEvent">
+          <Key>
+            <PropertyRef Name="MemoryLifeEventKey" />
+          </Key>
+          <Property Name="MemoryLifeEventKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemoryKey" Type="Int32" Nullable="false" />
+          <Property Name="LifeEventKey" Type="Int32" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="LifeEvent" Relationship="MemorybaseContext.FK_MemoryLifeEventLifeEventKey_LifeEventLifeEventKey" FromRole="MemoryLifeEvent" ToRole="LifeEvent" />
+          <NavigationProperty Name="Memory" Relationship="MemorybaseContext.FK_MemoryLifeEventMemoryKey_MemoryMemoryKey" FromRole="MemoryLifeEvent" ToRole="Memory" />
+        </EntityType>
+        <EntityType Name="MemoryNote">
+          <Key>
+            <PropertyRef Name="MemoryNoteKey" />
+          </Key>
+          <Property Name="MemoryNoteKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemoryKey" Type="Int32" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" />
+          <Property Name="Deleted" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="Memory" Relationship="MemorybaseContext.FK_MemoryNoteMemoryKey_MemoryMemoryKey" FromRole="MemoryNote" ToRole="Memory" />
+        </EntityType>
+        <EntityType Name="MemoryPerson">
+          <Key>
+            <PropertyRef Name="MemoryPersonKey" />
+          </Key>
+          <Property Name="MemoryPersonKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemoryKey" Type="Int32" Nullable="false" />
+          <Property Name="PersonKey" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Memory" Relationship="MemorybaseContext.FK_MemoryPersonMemoryKey_MemoryMemoryKey" FromRole="MemoryPerson" ToRole="Memory" />
+          <NavigationProperty Name="Person" Relationship="MemorybaseContext.FK_MemoryPersonPersonKey_PersonPersonKey" FromRole="MemoryPerson" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="MemoryTag">
+          <Key>
+            <PropertyRef Name="MemoryTagKey" />
+          </Key>
+          <Property Name="MemoryTagKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MemoryKey" Type="Int32" Nullable="false" />
+          <Property Name="TagKey" Type="Int32" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Memory" Relationship="MemorybaseContext.FK_MemoryTagMemoryKey_MemoryMemoryKey" FromRole="MemoryTag" ToRole="Memory" />
+          <NavigationProperty Name="Tag" Relationship="MemorybaseContext.FK_MemoryTagTagKey_TagTagKey" FromRole="MemoryTag" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonKey" />
+          </Key>
+          <Property Name="PersonKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="DateMet" Type="DateTime" />
+          <Property Name="FirstMemoryKey" Type="Int32" />
+          <NavigationProperty Name="Memory" Relationship="MemorybaseContext.FK_PersonFirstMemoryKey_MemoryMemoryKey" FromRole="Person" ToRole="Memory" />
+          <NavigationProperty Name="MemoryPersons" Relationship="MemorybaseContext.FK_MemoryPersonPersonKey_PersonPersonKey" FromRole="Person" ToRole="MemoryPerson" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="TagKey" />
+          </Key>
+          <Property Name="TagKey" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="SByte" Nullable="false" />
+          <NavigationProperty Name="MemoryTags" Relationship="MemorybaseContext.FK_MemoryTagTagKey_TagTagKey" FromRole="Tag" ToRole="MemoryTag" />
+        </EntityType>
+        <Association Name="FK_MemoryEmotionEmotionKey_EmotionEmotionKey">
+          <End Type="MemorybaseContext.Emotion" Role="Emotion" Multiplicity="1" />
+          <End Type="MemorybaseContext.MemoryEmotion" Role="MemoryEmotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Emotion">
+              <PropertyRef Name="EmotionKey" />
+            </Principal>
+            <Dependent Role="MemoryEmotion">
+              <PropertyRef Name="EmotionKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryLifeEventLifeEventKey_LifeEventLifeEventKey">
+          <End Type="MemorybaseContext.LifeEvent" Role="LifeEvent" Multiplicity="1" />
+          <End Type="MemorybaseContext.MemoryLifeEvent" Role="MemoryLifeEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LifeEvent">
+              <PropertyRef Name="LifeEventKey" />
+            </Principal>
+            <Dependent Role="MemoryLifeEvent">
+              <PropertyRef Name="LifeEventKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryEmotionMemoryKey_MemoryMemoryKey">
+          <End Type="MemorybaseContext.Memory" Role="Memory" Multiplicity="1" />
+          <End Type="MemorybaseContext.MemoryEmotion" Role="MemoryEmotion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="MemoryEmotion">
+              <PropertyRef Name="MemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryLifeEventMemoryKey_MemoryMemoryKey">
+          <End Type="MemorybaseContext.Memory" Role="Memory" Multiplicity="1" />
+          <End Type="MemorybaseContext.MemoryLifeEvent" Role="MemoryLifeEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="MemoryLifeEvent">
+              <PropertyRef Name="MemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryNoteMemoryKey_MemoryMemoryKey">
+          <End Type="MemorybaseContext.Memory" Role="Memory" Multiplicity="1" />
+          <End Type="MemorybaseContext.MemoryNote" Role="MemoryNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="MemoryNote">
+              <PropertyRef Name="MemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryPersonMemoryKey_MemoryMemoryKey">
+          <End Type="MemorybaseContext.Memory" Role="Memory" Multiplicity="1" />
+          <End Type="MemorybaseContext.MemoryPerson" Role="MemoryPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="MemoryPerson">
+              <PropertyRef Name="MemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryTagMemoryKey_MemoryMemoryKey">
+          <End Type="MemorybaseContext.Memory" Role="Memory" Multiplicity="1" />
+          <End Type="MemorybaseContext.MemoryTag" Role="MemoryTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="MemoryTag">
+              <PropertyRef Name="MemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonFirstMemoryKey_MemoryMemoryKey">
+          <End Type="MemorybaseContext.Memory" Role="Memory" Multiplicity="0..1" />
+          <End Type="MemorybaseContext.Person" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Memory">
+              <PropertyRef Name="MemoryKey" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="FirstMemoryKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryPersonPersonKey_PersonPersonKey">
+          <End Type="MemorybaseContext.Person" Role="Person" Multiplicity="1" />
+          <End Type="MemorybaseContext.MemoryPerson" Role="MemoryPerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonKey" />
+            </Principal>
+            <Dependent Role="MemoryPerson">
+              <PropertyRef Name="PersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MemoryTagTagKey_TagTagKey">
+          <End Type="MemorybaseContext.Tag" Role="Tag" Multiplicity="1" />
+          <End Type="MemorybaseContext.MemoryTag" Role="MemoryTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="TagKey" />
+            </Principal>
+            <Dependent Role="MemoryTag">
+              <PropertyRef Name="TagKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MemorybaseContextStoreContainer" CdmEntityContainer="memoryBaseEntities">
+          <EntitySetMapping Name="Emotions">
+            <EntityTypeMapping TypeName="MemorybaseContext.Emotion">
+              <MappingFragment StoreEntitySet="Emotion">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmotionKey" ColumnName="EmotionKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LifeEvents">
+            <EntityTypeMapping TypeName="MemorybaseContext.LifeEvent">
+              <MappingFragment StoreEntitySet="LifeEvent">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="LifeEventKey" ColumnName="LifeEventKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Memories">
+            <EntityTypeMapping TypeName="MemorybaseContext.Memory">
+              <MappingFragment StoreEntitySet="Memory">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="MemoryKey" ColumnName="MemoryKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemoryEmotions">
+            <EntityTypeMapping TypeName="MemorybaseContext.MemoryEmotion">
+              <MappingFragment StoreEntitySet="MemoryEmotion">
+                <ScalarProperty Name="Intensity" ColumnName="Intensity" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="EmotionKey" ColumnName="EmotionKey" />
+                <ScalarProperty Name="MemoryKey" ColumnName="MemoryKey" />
+                <ScalarProperty Name="MemoryEmotionKey" ColumnName="MemoryEmotionKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemoryLifeEvents">
+            <EntityTypeMapping TypeName="MemorybaseContext.MemoryLifeEvent">
+              <MappingFragment StoreEntitySet="MemoryLifeEvent">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="LifeEventKey" ColumnName="LifeEventKey" />
+                <ScalarProperty Name="MemoryKey" ColumnName="MemoryKey" />
+                <ScalarProperty Name="MemoryLifeEventKey" ColumnName="MemoryLifeEventKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemoryNotes">
+            <EntityTypeMapping TypeName="MemorybaseContext.MemoryNote">
+              <MappingFragment StoreEntitySet="MemoryNote">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="MemoryKey" ColumnName="MemoryKey" />
+                <ScalarProperty Name="MemoryNoteKey" ColumnName="MemoryNoteKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemoryPersons">
+            <EntityTypeMapping TypeName="MemorybaseContext.MemoryPerson">
+              <MappingFragment StoreEntitySet="MemoryPerson">
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+                <ScalarProperty Name="MemoryKey" ColumnName="MemoryKey" />
+                <ScalarProperty Name="MemoryPersonKey" ColumnName="MemoryPersonKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MemoryTags">
+            <EntityTypeMapping TypeName="MemorybaseContext.MemoryTag">
+              <MappingFragment StoreEntitySet="MemoryTag">
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="TagKey" ColumnName="TagKey" />
+                <ScalarProperty Name="MemoryKey" ColumnName="MemoryKey" />
+                <ScalarProperty Name="MemoryTagKey" ColumnName="MemoryTagKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="MemorybaseContext.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="FirstMemoryKey" ColumnName="FirstMemoryKey" />
+                <ScalarProperty Name="DateMet" ColumnName="DateMet" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PersonKey" ColumnName="PersonKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="MemorybaseContext.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TagKey" ColumnName="TagKey" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

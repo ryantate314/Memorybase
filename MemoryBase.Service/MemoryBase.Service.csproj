@@ -48,7 +48,7 @@
       <Project>{3d6a8ba1-3508-40ef-a7fd-9b62fa56db72}</Project>
       <Name>MemoryBase.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MemoryBase.Data\MemoryBase.Dto\MemoryBase.Dto.csproj">
+    <ProjectReference Include="..\MemoryBase.Dto\MemoryBase.Dto.csproj">
       <Project>{bd527796-4e43-46f1-bfcf-ceca9666ac09}</Project>
       <Name>MemoryBase.Dto</Name>
     </ProjectReference>
